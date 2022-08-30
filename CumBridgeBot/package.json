@@ -1,0 +1,37 @@
+{
+  "name": "kayami",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "author": "qwexc_#5948",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/builders": "^0.12.0",
+    "@distube/spotify": "^1.2.1",
+    "discord.js": "^13.6.0",
+    "distube": "^3.3.4",
+    "dotenv": "^16.0.0",
+    "erit-ytdl": "^0.1.3",
+    "fetch": "^1.1.0",
+    "ffmpeg": "^0.0.4",
+    "ffmpeg-static": "^4.4.1",
+    "giphy-api": "^2.0.2",
+    "glob": "^8.0.3",
+    "libsodium-wrappers": "^0.7.10",
+    "moment": "^2.29.2",
+    "ms": "^2.1.3",
+    "node-fetch": "^3.2.3",
+    "opusscript": "^0.0.8",
+    "random-animals-api": "^1.2.6",
+    "simple-youtube-api": "^5.2.1",
+    "sodium": "^3.0.2",
+    "util": "^0.12.4",
+    "ytdl": "^1.4.1",
+    "ytdl-core": "^4.11.0",
+    "ytdl-core-discord": "^1.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
