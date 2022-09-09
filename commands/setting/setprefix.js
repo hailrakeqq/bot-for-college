@@ -7,12 +7,21 @@ module.exports = {
 
     async execute(message, client, args) {
         try {
-            let Guild = (await GuildModel.findOne({ id: message.guild.id }))//!client.db.prefix ? cfg.prefix : client.db.prefix
-            if (!args[0]) return message.channel.send(`префикс: ` + "`" + Guild.prefix + "`" + `\n для смены префикса используйте ` + "`" + Guild.prefix + "setprefix [prefix]" + "`")
-            if (args[0].length >= 5) return message.channel.send("`" + "Невозможно установить префикс, убедитесь что длинна не привышает 5 символов" + "`")
+            if (!args[0]) {
+                let content = `${message.guild.name}'s prefix is:` + "`" + prefix + "`" + `\n\nTo set up a new prefix use ` + "`" + prefix + "setprefix [prefix]`"
+                return message.channel.send(content)
+            }
 
-            await GuildModel.updateOne({ id: message.guild.id }, { prefix: args[0] })
-            return message.channel.send(`Префикс успешно изменен на ` + "`" + args[0] + "`")
+            if (args[0].length > 5) {
+                let content = `Префикс не может быть длиннее 5ти символов!! \`\`\n\`\`\`${prefix}setprefix [prefix]\`\`\``
+                return message.channel.send(content)
+            }
+
+            prefix = args[0];
+            JSON.stringify({ "prefix": args[0] })
+
+            let content = `Префикс обновлен на -> ` + "`" + args[0] + "`"
+            return message.channel.send(content)
         } catch (error) { console.log(error); }
     },
     admin: true,

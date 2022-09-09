@@ -4,7 +4,7 @@ module.exports = {
         try {
             client.user.setPresence({
                 activities: [{
-                    name: "?help",
+                    name: `${prefix}help`,
                     type: 2
                 }]
             })

@@ -11,7 +11,7 @@ const { MessageEmbed } = require("discord.js");
 
 async function fetchCmdList(message, client, args) {
     let embed = new MessageEmbed()
-        .setAuthor({ name: `Kayami Bot Help List`, iconURL: client.user.displayAvatarURL() })
+        .setAuthor({ name: `Bot Help List`, iconURL: client.user.displayAvatarURL() })
         .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))//'https://cdn.discordapp.com/avatars/957673942909349989/e11524bec7a52bb05c41f9fdd072a6b9.webp?size=4096'
         .addFields({ name: '\u200b', value: '\u200b' })
         .setColor("#ff2474")

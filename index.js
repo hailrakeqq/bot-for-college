@@ -1,11 +1,14 @@
 const DiscordJS = require("discord.js"), fs = require("fs")
+const path = require('node:path');
 const { DisTube } = require("distube")
+const { PrismaClient } = require("@prisma/client")
 const { MessageEmbed } = require("discord.js");
-const { SoundCloudPlugin } = require('@distube/soundcloud')
 const { SpotifyPlugin } = require("@distube/spotify")
+global.prisma = new PrismaClient()
 global.cfg = require(`./config`)
 global.prefix = cfg.prefix
 require('dotenv').config()
+//global.recordCountId = 24 // номер последней записи в бд в таблицу testDev
 global.client = new DiscordJS.Client({
     partials: ['MESSAGE', 'CHANNEL', 'USER', `GUILD_MEMBER`, 'REACTION'],
     intents: 32767,
@@ -16,7 +19,6 @@ global.client = new DiscordJS.Client({
 })
 
 client.commands = new DiscordJS.Collection()
-client.commands.any = []
 client.queue = new Map();
 client.vote = new Map();
 
@@ -28,8 +30,6 @@ fs.readdir(`./commands`, (err, ff) => {
                 files.filter(g => g.endsWith(".js") && fs.lstatSync(`./commands/${dir}/${g}`).isFile()).forEach(file => {
                     let props = require(`./commands/${dir}/${file}`)
                     client.commands.set(file.split(".")[0], props)
-                    if (props.userPermissions) props.defaultPermissions = false;
-                    client.commands.any.push(props)
                 })
             }
         })
@@ -47,14 +47,15 @@ fs.readdir(`./events`, (err, files) => {
     })
 })
 
+
+
 let AddEmbed = new MessageEmbed().setColor("PURPLE")
 let PlayEmbed = new MessageEmbed()
 let addListEmbed = new MessageEmbed().setColor("PURPLE")
 let emptyQueueEmbed = new MessageEmbed().setColor(`#8f40ff`)
 
 global.distube = new DisTube(client, {
-    plugins: [new SoundCloudPlugin(),
-    new SpotifyPlugin({
+    plugins: [new SpotifyPlugin({
         parallel: true,
         emitEventsAfterFetching: false,
         api: {
