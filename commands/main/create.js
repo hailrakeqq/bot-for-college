@@ -14,32 +14,32 @@ module.exports = {
         let i = 0
         if (args[0] != null) {
             while (args[i] != ';') {
-                args[i] = title[i]
+                title.push(args[i])
                 i++;
             }
             i++;
             while (args[i] != ';') {
-                args[i] = content[i]
+                content.push(args[i])
                 i++;
             }
             i++;
             while (args[i] != ';') {
-                args[i] = time[i]
+                time.push(args[i].toString())
                 i++;
             }
-            //recordCountId++
+            i = 0;
+            recordCountId++
 
             await prisma.testDev.create({
                 data: {
                     title: `${title}`,
                     content: `${content}`,
                     time: `${time}`,
+                    published: true,
                     author: message.member.user.tag
                 },
             })
-            //message.channel.send(`Запись создана в базу данных с id: ${recordCountId}`)
-            message.channel.send(`Запись создана в базу данных с id:`)
-
+            message.channel.send(`Запись создана в базу данных с id: ${recordCountId}`)
         } else message.channel.send({
             embeds: [errorEmbed
                 .setTitle(`:x: Ошибка добавления записи в базу данных`)
