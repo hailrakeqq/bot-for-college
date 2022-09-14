@@ -7,22 +7,19 @@ module.exports = {
     category: ":desktop: Взаимодействие с Базой данных",
     aliases: [],
     async execute(message, client, args) {
-        let id = Number.parseInt(args[0])
+        let findLesson = args[0]
         let successEmbed = new MessageEmbed()
-            .setColor('GREEN').setDescription(`Вы успешно удалили запись с id: ${id}`)
+            .setColor('GREEN').setDescription(`Вы успешно удалили запись с именем: ${findLesson}`)
         let errorEmbed = new MessageEmbed().setColor('RED');
 
-        if (id == 0 || id != Number) return message.channel.send({
-            embeds: [errorEmbed.setDescription(`Вы не ввели число, или ввели неправальное\nВозможно записи с id: ${id} не существует`)]
+        if (findLesson == undefined) return message.channel.send({
+            embeds: [errorEmbed.setDescription(`Вы не ввели название дисциплины, или ввели неправельное`)]
         })
         else {
             try {
-                await prisma.testDev.delete({ where: { id } })
+                await prisma.Main.delete({ where: { name: `${findLesson}` } })
                 return message.channel.send({ embeds: [successEmbed] });
-            } catch (e) {
-                console.log(e)
-                message.channel.send({ embeds: [errorEmbed.setDescription(`Удалить запись не удалось (возможно записи с id: \`${id}\` не существует)`)] })
-            }
+            } catch (e) { console.log(e) }
         }
     }
 }
