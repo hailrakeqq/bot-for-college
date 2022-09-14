@@ -8,7 +8,6 @@ global.prisma = new PrismaClient()
 global.cfg = require(`./config`)
 global.prefix = cfg.prefix
 require('dotenv').config()
-//global.recordCountId = 24 // номер последней записи в бд в таблицу testDev
 global.client = new DiscordJS.Client({
     partials: ['MESSAGE', 'CHANNEL', 'USER', `GUILD_MEMBER`, 'REACTION'],
     intents: 32767,
